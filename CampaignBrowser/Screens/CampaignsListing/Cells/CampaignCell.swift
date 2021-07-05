@@ -8,7 +8,10 @@ import RxSwift
 class CampaignCell: UICollectionViewCell {
 
     private let disposeBag = DisposeBag()
-
+    
+    /** Used to display the campaign's containerView. */
+    @IBOutlet private(set) weak var campaignContainerView: UIView!
+    
     /** Used to display the campaign's title. */
     @IBOutlet private(set) weak var nameLabel: UILabel!
 
@@ -42,12 +45,19 @@ class CampaignCell: UICollectionViewCell {
             descriptionLabel?.text = descriptionText
         }
     }
-
+    
+    // Apply width constraint for the cell with screen width
+    func setupConstraints() {
+        campaignContainerView.translatesAutoresizingMaskIntoConstraints = false
+        campaignContainerView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width).isActive = true
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 
         assert(nameLabel != nil)
         assert(descriptionLabel != nil)
         assert(imageView != nil)
+        setupConstraints()
     }
 }

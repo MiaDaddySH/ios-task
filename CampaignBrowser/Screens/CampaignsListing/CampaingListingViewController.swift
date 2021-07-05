@@ -14,10 +14,19 @@ class CampaignListingViewController: UIViewController {
 
     @IBOutlet
     private(set) weak var typedView: CampaignListingView!
-
+    
+    // Add Custom UICollectionViewFlowLayout for dynamic cell
+    lazy var layout: UICollectionViewFlowLayout = {
+        let layout = typedView.collectionViewLayout as? UICollectionViewFlowLayout
+        let width = UIScreen.main.bounds.size.width
+        layout?.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        return layout ?? UICollectionViewFlowLayout()
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        // Setting the customized layout for collectionView
+        typedView.collectionViewLayout = layout
         assert(typedView != nil)
     }
 
